@@ -1,0 +1,48 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.ipynb_checkpoints/
+.venv/
+venv/
+env/
+.env
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# TensorFlow / model checkpoints
+*.keras
+*.h5
+*.hdf5
+checkpoints/
+models/
+*_models/
+
+# Generated experiment folders
+rohitash_ieee_access_results/
+rohitash_ieee_access_smoke/
+rohitash_v6_smoke_results/
+rohitash_transactions_v6_colab_3seed/
+smoke_test_colab_seed3/
+fast_5seed_figures_fixed/
+medium_5seed_figures/
+publication_results/
+single_irs_results/
+expected_figures/
+figures/
+plot/
+
+# Generated run state / metadata
+checkpoint_*.json
+_complete.flag
+
+# Archives / temporary files
+*.zip
+*.rar
+*.7z
+*.tmp
+*.log

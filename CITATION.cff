@@ -1,0 +1,22 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the associated paper and this software release."
+title: "Mobility-Aware Channel Estimation for IRS-Assisted High-Speed Railways"
+type: software
+authors:
+  - family-names: "Monga"
+    given-names: "Sakhshra"
+  - family-names: "Rohitash"
+    given-names: ""
+  - family-names: "Saluja"
+    given-names: "Nitin"
+  - family-names: "Shah"
+    given-names: "A. F. M. Shahen"
+  - family-names: "Ekoru"
+    given-names: "John"
+version: "1.0.0"
+date-released: "2026-09-25"
+repository-code: "https://github.com/Rohit12-web/wireless-channel-estimator-hsr"
+abstract: >
+  Reproducibility code for a physics-guided and uncertainty-aware predictive
+  effective-channel framework for single-IRS-assisted high-speed railway
+  communications.
