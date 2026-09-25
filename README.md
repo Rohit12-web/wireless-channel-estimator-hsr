@@ -1,14 +1,15 @@
-Wireless Channel Estimator for High-Speed Railway Communications
+# Wireless Channel Estimator for High-Speed Railway Communications
 
-Reproducibility repository for the research work “Mobility-Aware Channel Estimation for IRS-Assisted High-Speed Railways.”
+Reproducibility repository for the research work **“Mobility-Aware Channel Estimation for IRS-Assisted High-Speed Railways.”**
 
-The implementation investigates future effective-channel prediction for a single-IRS-assisted high-speed railway (HSR) MIMO link. The framework combines pilot-based channel acquisition, physics-guided mobility modeling, residual temporal learning, predictive uncertainty, adaptive pilot evaluation, and prediction-aware IRS control.
+This repository contains the publication-oriented implementation of a physics-guided and uncertainty-aware framework for future effective-channel prediction in a single-IRS-assisted high-speed railway (HSR) MIMO system. The framework combines pilot-based channel acquisition, mobility-aware physical modeling, residual temporal learning, predictive uncertainty, adaptive pilot evaluation, and prediction-aware IRS control.
 
-Repository: https://github.com/Rohit12-web/wireless-channel-estimator-hsr
-Archival DOI: To be added after the GitHub release is archived through Zenodo.
+> **Repository:** https://github.com/Rohit12-web/wireless-channel-estimator-hsr  
+> **Archival DOI:** To be added after the tagged GitHub release is archived through Zenodo.
 
-Repository Structure
+## Repository Structure
 
+```text
 wireless-channel-estimator-hsr/
 ├── README.md
 ├── CITATION.cff
@@ -20,151 +21,178 @@ wireless-channel-estimator-hsr/
 ├── docs/
 │   ├── REPRODUCIBILITY.md
 │   └── REPOSITORY_MANIFEST.md
-├── data/
-│   └── README.md
 └── results/
-    └── README.md
+    ├── README.md
+    ├── 01_nmse_vs_snr.png
+    ├── 01b_nmse_temporal_fair.png
+    ├── 02_nmse_vs_speed.png
+    ├── 03_channel_aging.png
+    ├── 04_pilot_efficiency_and_net_se.png
+    ├── 06_ber_vs_snr_db.png
+    ├── 07_se_vs_snr_db.png
+    ├── 08_temporal_ablation.png
+    ├── 09_k_factor_mismatch.png
+    └── 10_phase_error_robustness.png
+```
 
-The repository intentionally contains the publication-oriented implementation only. Older development versions, smoke-test outputs, generated model checkpoints, temporary figures, and exploratory scripts are excluded from the archival source repository.
+The repository intentionally retains only the publication-oriented source code and the selected final result figures. Older development versions, smoke-test outputs, generated model checkpoints, temporary plots, and exploratory implementations are excluded to keep the archival repository concise and traceable.
 
-Main Implementation
+## Main Implementation
 
 The principal implementation is:
 
+```text
 src/publication_pipeline_v6_transactions_final.py
+```
 
 The pipeline includes:
 
-single-IRS-assisted effective-channel modeling,
-H_eff = H_d + H_r Phi G;
+- single-IRS-assisted effective-channel modeling,
+  `H_eff = H_d + H_r Phi G`;
+- continuous HSR motion with geometry-dependent Doppler evolution;
+- orthogonal MIMO pilot transmission and LS channel initialization;
+- matched, mismatched, and temporal LMMSE references;
+- spatial learning-based channel-estimation baselines;
+- CNN-BiLSTM and GRU-ODE-inspired temporal prediction baselines;
+- signed-Doppler/Jakes physics-guided future-channel prediction;
+- condition-aware BiLSTM residual refinement;
+- heteroscedastic predictive uncertainty estimation;
+- adaptive pilot-selection evaluation;
+- prediction-aware IRS-control evaluation; and
+- NMSE, mobility, channel-aging, BER, spectral-efficiency, robustness,
+  ablation, uncertainty, and computational-complexity studies.
 
-continuous HSR motion with geometry-dependent Doppler evolution;
-
-orthogonal MIMO pilot transmission and LS channel initialization;
-
-matched, mismatched, and temporal LMMSE references;
-
-spatial learning-based channel-estimation baselines;
-
-CNN-BiLSTM and GRU-ODE-inspired temporal prediction baselines;
-
-signed-Doppler/Jakes physics-guided future-channel prediction;
-
-condition-aware BiLSTM residual refinement;
-
-heteroscedastic predictive uncertainty estimation;
-
-adaptive pilot-selection evaluation;
-
-prediction-aware IRS-control evaluation; and
-
-NMSE, channel-aging, mobility, BER, spectral-efficiency, robustness,
-ablation, uncertainty-calibration, and computational-complexity studies.
-
-Requirements
+## Requirements
 
 Python 3.10 or later is recommended.
 
-Install the required packages with:
+Install the required packages using:
 
+```bash
 pip install -r requirements.txt
+```
 
-A GPU-enabled TensorFlow environment is recommended for the complete publication run.
+A GPU-enabled TensorFlow environment is recommended for the complete training and evaluation pipeline.
 
-Quick Implementation Check
+## Quick Implementation Check
 
-A lightweight smoke test can be executed using:
+A lightweight implementation check can be executed using:
 
+```bash
 python src/publication_pipeline_v6_transactions_final.py --mode smoke
+```
 
-This mode is intended only to verify that the implementation and dependencies execute correctly. Smoke-test outputs should not be used as final manuscript results.
+This mode is intended only to verify that the implementation and software dependencies execute correctly. Smoke-test outputs should not be treated as publication results.
 
-Publication Run
+## Publication Evaluation
 
-The full publication configuration can be executed using:
+The publication-oriented configuration can be executed using:
 
+```bash
 python src/publication_pipeline_v6_transactions_final.py \
     --mode publication \
     --output-dir results/publication_run
+```
 
-The publication profile uses five main-model seeds by default. The seed count can be changed explicitly, for example:
+The complete publication evaluation is computationally intensive and is intended for a GPU-enabled TensorFlow environment.
 
-python src/publication_pipeline_v6_transactions_final.py \
-    --mode publication \
-    --seeds 5 \
-    --output-dir results/publication_run
+The exact seed count, prediction horizon, training budget, and evaluation configuration used for a manuscript result should match the configuration reported for that particular experiment.
 
-The headline nonzero prediction horizon can also be overridden when required:
-
-python src/publication_pipeline_v6_transactions_final.py \
-    --mode publication \
-    --prediction-delay-ms 1.0 \
-    --output-dir results/publication_run
-
-The complete publication profile is computationally intensive and may require a GPU-enabled TensorFlow environment.
-
-Data Generation
+## Data Generation
 
 No external measurement dataset is required by the main simulation pipeline.
 
-Channel realizations are generated from the implemented physical communication model, including:
+All channel realizations are generated programmatically by the physical communication model implemented in:
 
-continuous train motion;
+```text
+src/publication_pipeline_v6_transactions_final.py
+```
 
-direct BS--MCR and reflected BS--IRS--MCR links;
+The simulation includes:
 
-Rician fading;
+- continuous train motion;
+- direct BS--MCR and reflected BS--IRS--MCR propagation links;
+- geometry-dependent path evolution;
+- Rician fading;
+- mobility-dependent Doppler evolution and temporal correlation;
+- IRS phase configuration;
+- orthogonal MIMO pilot observations; and
+- additive complex Gaussian noise.
 
-geometry-dependent path evolution;
+Because the experimental data are generated directly by the simulation code, no separate top-level dataset directory is required in this repository.
 
-Doppler variation and temporal correlation;
+## Results
 
-IRS phase configuration;
+The `results/` directory contains the principal figures retained for the publication-oriented evaluation.
 
-orthogonal pilot observations; and
+The included results cover:
 
-additive complex Gaussian noise.
+- effective-channel NMSE versus SNR;
+- fair temporal-estimator comparison;
+- NMSE versus train speed;
+- channel-aging performance;
+- pilot-efficiency and net spectral-efficiency analysis;
+- predictive BER versus SNR;
+- predictive spectral efficiency versus SNR;
+- temporal-model ablation analysis;
+- Rician K-factor mismatch robustness; and
+- IRS phase-error robustness.
 
-Additional information is provided in:
+The current figure files are:
 
-data/README.md
+```text
+results/01_nmse_vs_snr.png
+results/01b_nmse_temporal_fair.png
+results/02_nmse_vs_speed.png
+results/03_channel_aging.png
+results/04_pilot_efficiency_and_net_se.png
+results/06_ber_vs_snr_db.png
+results/07_se_vs_snr_db.png
+results/08_temporal_ablation.png
+results/09_k_factor_mismatch.png
+results/10_phase_error_robustness.png
+```
 
-Reproducibility
+Only figures corresponding to the final manuscript configuration should be retained in the archival release. Smoke-test outputs, reduced-budget experiments, obsolete figures, and historical development results should remain excluded.
 
-The repository is structured so that the simulation configuration used for a manuscript result can be traced to the corresponding source implementation.
+Where available, the numerical CSV/JSON outputs used to generate the final figures may also be archived with the tagged release to further support reproducibility.
 
-For final archival use:
+## Reproducibility
 
-use the exact code version associated with the submitted manuscript;
+The repository is structured so that the simulation methodology and final reported results can be traced to the publication-oriented source implementation.
 
-retain the seed count and evaluation settings used for each reported result;
+For the archival release:
 
-keep smoke-test and reduced-budget runs separate from publication results;
+1. use the exact source-code version associated with the submitted manuscript;
+2. retain the seed count and evaluation settings used for each reported experiment;
+3. keep smoke-test and reduced-budget runs separate from publication results;
+4. preserve only final manuscript figures and their corresponding numerical outputs; and
+5. create a tagged GitHub release before archiving the repository with Zenodo.
 
-store only the final CSV, JSON, and figure outputs used in the paper under results/; and
+Further information is provided in:
 
-create a tagged GitHub release before archiving the repository with Zenodo.
-
-Further details are available in:
-
+```text
 docs/REPRODUCIBILITY.md
+```
 
-Results
-
-The results/ directory is reserved for outputs corresponding to the final frozen manuscript configuration.
-
-Development results, old pipeline outputs, smoke-test runs, and reduced-budget experiments should not be mixed with the archival publication results.
-
-Citation
+## Citation
 
 Citation metadata are provided in:
 
+```text
 CITATION.cff
+```
 
-After Zenodo archives the tagged GitHub release, the assigned DOI should be added to both CITATION.cff and this README.
+Before creating the tagged release, ensure that `CITATION.cff` contains the correct repository address:
 
-A DOI badge can then be added at the top of this README using the Zenodo-generated badge code.
+```text
+https://github.com/Rohit12-web/wireless-channel-estimator-hsr
+```
 
-License
+After Zenodo archives the tagged GitHub release, add the assigned DOI to both `CITATION.cff` and this README.
 
-See the LICENSE file for the terms associated with this research code.
+A Zenodo DOI badge may then be added near the top of this README using the badge code generated by Zenodo.
+
+## License
+
+See the `LICENSE` file for the terms associated with this research code.
