@@ -1,11 +1,14 @@
 # Wireless Channel Estimator for High-Speed Railway Communications
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22961234.svg)](https://doi.org/10.5281/zenodo.22961234)
+
 Reproducibility repository for the research work **“Mobility-Aware Channel Estimation for IRS-Assisted High-Speed Railways.”**
 
 This repository contains the publication-oriented implementation of a physics-guided and uncertainty-aware framework for future effective-channel prediction in a single-IRS-assisted high-speed railway (HSR) MIMO system. The framework combines pilot-based channel acquisition, mobility-aware physical modeling, residual temporal learning, predictive uncertainty, adaptive pilot evaluation, and prediction-aware IRS control.
 
 > **Repository:** https://github.com/Rohit12-web/wireless-channel-estimator-hsr  
-> **Archival DOI:** To be added after the tagged GitHub release is archived through Zenodo.
+> **Archived release:** v1.0.0  
+> **Zenodo DOI:** https://doi.org/10.5281/zenodo.22961234
 
 ## Repository Structure
 
@@ -35,7 +38,7 @@ wireless-channel-estimator-hsr/
     └── 10_phase_error_robustness.png
 ```
 
-The repository intentionally retains only the publication-oriented source code and the selected final result figures. Older development versions, smoke-test outputs, generated model checkpoints, temporary plots, and exploratory implementations are excluded to keep the archival repository concise and traceable.
+The repository intentionally retains only the publication-oriented source code and the selected result figures used for the archival research release. Older development versions, smoke-test outputs, generated model checkpoints, temporary plots, and exploratory implementations are excluded to keep the repository concise and traceable.
 
 ## Main Implementation
 
@@ -47,8 +50,7 @@ src/publication_pipeline_v6_transactions_final.py
 
 The pipeline includes:
 
-- single-IRS-assisted effective-channel modeling,
-  `H_eff = H_d + H_r Phi G`;
+- single-IRS-assisted effective-channel modeling, `H_eff = H_d + H_r Phi G`;
 - continuous HSR motion with geometry-dependent Doppler evolution;
 - orthogonal MIMO pilot transmission and LS channel initialization;
 - matched, mismatched, and temporal LMMSE references;
@@ -153,21 +155,28 @@ results/09_k_factor_mismatch.png
 results/10_phase_error_robustness.png
 ```
 
-Only figures corresponding to the final manuscript configuration should be retained in the archival release. Smoke-test outputs, reduced-budget experiments, obsolete figures, and historical development results should remain excluded.
+Only figures corresponding to the manuscript-oriented evaluation should be retained in the archival release. Smoke-test outputs, reduced-budget experiments, obsolete figures, and historical development results should remain excluded.
 
-Where available, the numerical CSV/JSON outputs used to generate the final figures may also be archived with the tagged release to further support reproducibility.
+Where available, the numerical CSV/JSON outputs used to generate the final figures may also be archived with a future release to further support reproducibility.
 
 ## Reproducibility
 
-The repository is structured so that the simulation methodology and final reported results can be traced to the publication-oriented source implementation.
+The repository is structured so that the simulation methodology and reported results can be traced to the publication-oriented source implementation.
 
-For the archival release:
+For reproducible use:
 
-1. use the exact source-code version associated with the submitted manuscript;
-2. retain the seed count and evaluation settings used for each reported experiment;
+1. use the source-code version associated with the relevant tagged release;
+2. retain the seed count and evaluation settings reported for each experiment;
 3. keep smoke-test and reduced-budget runs separate from publication results;
-4. preserve only final manuscript figures and their corresponding numerical outputs; and
-5. create a tagged GitHub release before archiving the repository with Zenodo.
+4. preserve manuscript figures together with their corresponding numerical outputs where available; and
+5. cite the archived Zenodo release when referring to the exact software snapshot.
+
+The first archived reproducibility release is:
+
+```text
+v1.0.0
+DOI: 10.5281/zenodo.22961234
+```
 
 Further information is provided in:
 
@@ -183,15 +192,11 @@ Citation metadata are provided in:
 CITATION.cff
 ```
 
-Before creating the tagged release, ensure that `CITATION.cff` contains the correct repository address:
+The archived software release is available through Zenodo:
 
-```text
-https://github.com/Rohit12-web/wireless-channel-estimator-hsr
-```
+**DOI:** https://doi.org/10.5281/zenodo.22961234
 
-After Zenodo archives the tagged GitHub release, add the assigned DOI to both `CITATION.cff` and this README.
-
-A Zenodo DOI badge may then be added near the top of this README using the badge code generated by Zenodo.
+When using this implementation in academic work, please cite the Zenodo software release together with the associated research article, where appropriate.
 
 ## License
 

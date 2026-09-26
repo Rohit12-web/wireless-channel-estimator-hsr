@@ -16,6 +16,9 @@ authors:
 version: "1.0.0"
 date-released: "2026-09-25"
 repository-code: "https://github.com/Rohit12-web/wireless-channel-estimator-hsr"
+doi: "10.5281/zenodo.22961234"
+url: "https://doi.org/10.5281/zenodo.22961234"
+
 abstract: >
   Reproducibility code for a physics-guided and uncertainty-aware predictive
   effective-channel framework for single-IRS-assisted high-speed railway
